@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>항해99 - 미니프로젝트1</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      function getParameter(name) {
+        name = name.replace(/[\[]/, "\\[").replace(/[\]]/, "\\]");
+        var regex = new RegExp("[\\?&]" + name + "=([^&#]*)"),
+          results = regex.exec(location.search);
+        return results === null
+          ? ""
+          : decodeURIComponent(results[1].replace(/\+/g, " "));
+      }
+
+      $(document).ready(function () {
+        listing();
+      });
+
+      let objid = getParameter("objid");
+
+      function listing() {
+        $.ajax({
+          type: "GET",
+          url: `/hh99/board/view/${objid}`,
+          data: {},
+          success: function (response) {
+            $("#title").text(response["title"]);
+            $("#author").text(response["author"]);
+            $("#comment").text(response["comment"]);
+          },
+        });
+      }
+
+      function back() {
+        window.location.href = "/hh99/board";
+      }
+    </script>
+    <style>
+      .wrap {
+        width: 500px;
+        margin: 200px auto;
+      }
+      .comment-area {
+        background-color: lightgray;
+        padding: 20px;
+        border-radius: 10px;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="form-group">
+        <h4 id="title">이것이 제목입니다.</h4>
+      </div>
+      <div class="form-group">
+        <h6 id="author">글쓴이입니다</h6>
+      </div>
+      <div class="form-group comment-area">
+        <p id="comment">
+          내용입니다. 내용입니다. 내용입니다. 내용입니다. 내용입니다
+        </p>
+      </div>
+      <button onclick="back()" class="btn btn-primary">돌아가기</button>
+    </div>
+  </body>
+</html>

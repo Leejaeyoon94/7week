@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+        integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.min.js"
+        integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous""></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+        integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous""></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+        integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous""></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>항해99 - 미니프로젝트</title>
+    <script>
+        $(document).ready(function () {
+            listing()
+        })
+
+        function listing() {
+            $('#articles').empty()
+            $.ajax({
+                type: "GET",
+                url: "/hh99/board/list",
+                data: {},
+                success: function (response) {
+                    let articles = response['articles'];
+                    for(let i = 0; i < articles.length; i++) {
+                        
+                        let title = articles[i]['title']
+                        let author = articles[i]['author']
+                        let objid = articles[i]['_id']
+                        let no = articles[i]['no']
+
+                        let temp_html = `<tr onclick="view('${objid}')">
+                                            <th scope="row">${no}</th>
+                                            <td>${author}</td>
+                                            <td>${title}</td>
+                                        </tr>`
+                        $('#articles').append(temp_html)
+                    }
+                }
+            });
+        }
+
+        function view(objid) {
+            window.location.href=`/hh99/board/view?objid=${objid}`
+        }
+    </script>
+    <style>
+        .wrap {
+            width: 900px;
+            margin: auto;
+        }
+        tr {
+            cursor: pointer;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrap">
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-4">게시판 만들기</h1>
+                <p class="lead">아주 간단한 게시판을 만들어봅니다.</p>
+                <a class="btn btn-primary btn-lg" href="/hh99/board/post" role="button">글쓰기</a>
+            </div>
+        </div>
+        <table class="table table-hover">
+            <thead>
+            <tr>
+                <th scope="col">글번호</th>
+                <th scope="col">글쓴이</th>
+                <th scope="col">글제목</th>
+            </tr>
+            </thead>
+            <tbody id="articles">
+            <tr onclick="view()">
+                <th scope="row">1</th>
+                <td>글쓴이1</td>
+                <td>글 제목이 들어갑니다</td>
+            </tr>
+            <tr onclick="view()">
+                <th scope="row">2</th>
+                <td>글쓴이2</td>
+                <td>글 제목이 들어갑니다</td>
+            </tr>
+            <tr onclick="view()">
+                <th scope="row">3</th>
+                <td>글쓴이3</td>
+                <td>글 제목이 들어갑니다</td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</body>
+
+</html>

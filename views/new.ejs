@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <!-- Required meta tags -->
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+
+    <!-- Bootstrap CSS -->
+    <link
+      rel="stylesheet"
+      href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+      crossorigin="anonymous"
+    />
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script
+      src="https://code.jquery.com/jquery-3.2.1.min.js"
+      integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
+      integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+      crossorigin="anonymous"
+    ></script>
+    <script
+      src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
+      integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+      crossorigin="anonymous"
+    ></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel='stylesheet' href='{{ url_for('static', filename='css/hh99_miniprj_easy.css')
+
+
+
+
+    }}' />
+    <title>항해99 - 미니프로젝트</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100;300;400;500;700;900&display=swap"
+      rel="stylesheet"
+    />
+    <script>
+      function post() {
+        let title = $("#title").val();
+        let author = $("#author").val();
+        let comment = $("#comment").val();
+
+        $.ajax({
+          type: "POST",
+          url: "/hh99/board/post",
+          data: { title: title, author: author, comment: comment },
+          success: function (response) {
+            alert(response["msg"]);
+            window.location.href = "/hh99/board";
+          },
+        });
+      }
+    </script>
+    <style>
+      .wrap {
+        width: 500px;
+        margin: 200px auto;
+      }
+    </style>
+  </head>
+
+  <body>
+    <div class="wrap">
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="title"
+          placeholder="제목을 입력하세요"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control"
+          id="author"
+          placeholder="글쓴이를 입력하세요"
+        />
+      </div>
+      <div class="form-group">
+        <textarea
+          class="form-control"
+          placeholder="내용을 입력하세요"
+          id="comment"
+          rows="5"
+        ></textarea>
+      </div>
+      <button
+        onclick="post()"
+        type="submit"
+        id="btn-submit"
+        class="btn btn-primary"
+      >
+        글쓰기
+      </button>
+    </div>
+  </body>
+</html>
